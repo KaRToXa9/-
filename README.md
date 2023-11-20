@@ -47,6 +47,7 @@ main_dataframe['ticker'] = main_dataframe['ticker'].str.replace(r'^', '')
 ### Первый взгляд на данные:
 
 main_dataframe
+```
 ```Python
 main_dataframe.shape == main_dataframe[main_dataframe['raw_close']== main_dataframe['close']].shape
 ```
@@ -60,8 +61,9 @@ features = pd.DataFrame(np.array(['Биржа','Дата','Цена закрыт
                       'Наименее низкая цена','Цена открытия','Объем торгов']),main_dataframe.columns)
 features
 ```
+```Python
 name = np.unique(main_dataframe['ticker'].values)
-name
+```
 
 ### Описание аббревиатуры каждого индекса бирж:
 ```Python
@@ -75,8 +77,6 @@ abbreviation = pd.DataFrame({'Индекс': name, 'Расшифровка': nam
 abbreviation
 
 main_dataframe['date'] = pd.to_datetime(main_dataframe['date'])
-
-main_dataframe.info
 ```
 ### Описательная статистика датасета по цене открытия:
 ```Python
@@ -107,6 +107,7 @@ def feature_boxplot(feature):
 
 feature_boxplot('volume')
 ```
+![Image1.](/pictures/boxplot.png)
 ### Можем заметить значительные выбросы во всех биржах по объему торгов, также сразу можем понять что на бирже VIX объемы отсутствуют, что соответствует здравому смыслу, так как этот индекс показывает общую волатильность фондовогго рынка и является своего рода индикатором поведения рынка.
 ```Python
 fig, ax = plt.subplots(figsize=(14, 9)) 
@@ -237,6 +238,8 @@ Hyp1 = pd.DataFrame({'Биржа': name[(name!='VIX') & (name!='MERV')],'p_value
 
 Hyp1
 ```
+![image](/pictures/изображение_2023-11-20_211156719.png)
+
 ### Вывод:
 ### При проверке гипотезы были обнаружены статистически значимые различия в биржах: 000001.SS, DJI, GSPTSE, NYA. В данных биржах можно сделать вывод о том что в дни когда объем торгов больше, цена закрытия будет больше в сравнении с днями с меньшим объемом торгов.
 
@@ -322,6 +325,7 @@ Hyp2 = bootstrap_stock_mean(0.05)
 ```Python
 Hyp2
 ```
+![image](/pictures/изображение_2023-11-20_211516067.png)
 ### Визуализируем наше поведение статистик в биржах для наглядности:
 ```Python
 def plot_bootstrap_mean(name):
